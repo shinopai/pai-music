@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= yield(:html_title) %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+  <!-- Material design icons -->
+  <%= stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons', media: 'all' %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+</head>
+
+<body>
+  <% if flash[:notice] %>
+  <p class="notice"><%= notice %></p>
+  <% end %>
+
+  <% if flash[:alert] %>
+  <p class="alert"><%= alert %></p>
+  <% end %>
+
+  <!-- header -->
+  <%= render 'layouts/partial/header' %>
+
+  <main class="w-[80%] mx-auto my-10">
+    <%= yield %>
+  </main>
+
+  <!-- footer -->
+  <%= render 'layouts/partial/footer' %>
+</body>
+
+</html>
