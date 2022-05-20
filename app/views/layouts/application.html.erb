@@ -15,18 +15,22 @@
 </head>
 
 <body>
-  <% if flash[:notice] %>
-  <p class="notice"><%= notice %></p>
-  <% end %>
-
-  <% if flash[:alert] %>
-  <p class="alert"><%= alert %></p>
-  <% end %>
-
   <!-- header -->
   <%= render 'layouts/partial/header' %>
 
+  <% if user_signed_in? %>
+  <p class="p-2">こんにちは、<span class="font-bold"><%= current_user.name %></span>さん</p>
+  <% end %>
+
   <main class="w-[80%] mx-auto my-10">
+    <% if flash[:notice] %>
+    <p class="notice bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3"><%= notice %></p>
+    <% end %>
+
+    <% if flash[:alert] %>
+    <p class="alert bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3"><%= alert %></p>
+    <% end %>
+
     <%= yield %>
   </main>
 

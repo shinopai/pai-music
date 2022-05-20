@@ -76,3 +76,18 @@ gem 'tailwindcss-rails'
 
 # auth user
 gem 'devise'
+
+# localizing into japanese of devise
+gem 'devise-i18n'
+
+# use spotify api
+gem 'rspotify'
+
+# management env
+gem "dotenv-rails"
+
+# pagination
+gem 'kaminari'
+
+# upgrade rails console
+gem 'pry-rails'

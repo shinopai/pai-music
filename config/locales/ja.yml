@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+  errors:
+    messages:
+      record_invalid: "バリデーションに失敗しました: %{errors}"
+    models:
+      artist:
+        attributes:
+          spotify_id:
+            invalid: "形式が正しくありません: %{errors}"
