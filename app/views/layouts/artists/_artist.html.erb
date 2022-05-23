@@ -1,0 +1,65 @@
+<div class="grid place-items-center bg-gradient-to-t from-blue-200 to-gray-800 p-5 mt-10">
+  <div>
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <% @results.each do |result| %>
+      <div class="bg-gray-800 w-60 shadow-lg rounded p-2 h-full">
+        <div class="py-2 px-4 text-center tracking-wide grid grid-cols-3 gap-6">
+          <div class="flex tools">
+            <p class="flex text-gray-400 text-sm justify-center">
+              <span class="material-icons" style="margin-top: -3px;">
+                favorite_border
+              </span>
+            </p>
+            <p class="text-sm text-blue-600 animate-pulse px-2"><%= result.popularity %></p>
+          </div>
+          <div class="flex followers">
+            <p class="flex text-gray-400 text-sm justify-center">
+              <span class="material-icons" style="margin-top: -3px;">
+                groups
+              </span>
+            </p>
+            <p class="text-sm text-blue-600 animate-pulse px-2"><%= result.followers['total'] %></p>
+          </div>
+          <% if user_signed_in? %>
+          <div class="flex justify-end followers">
+            <p class="flex text-gray-400 text-sm justify-center">
+              <% if isExistsArtist(result.id) %>
+              <%= link_to confirm_user_artists_path(current_user.id, result: createArtistObject(result.name, result.id, result.images[0], result.external_urls, result.genres[0])) do %>
+              <span class="material-icons cursor-pointer" title="このアーティストを保存する">
+                add_box
+              </span>
+              <% end %>
+              <% else %>
+              <span class="material-icons cursor-pointer" title="既に登録済です">
+                how_to_reg
+              </span>
+              <% end %>
+            </p>
+          </div>
+          <% end %>
+        </div>
+        <div class="group relative">
+          <% if result.images.any? %>
+          <% image = result.images[0] %>
+          <%= image_tag image['url'], class: 'h-48 w-full rounded block' %>
+          <% else %>
+          <%= image_tag 'no-image.jpg', class: 'block h-48 w-full rounded block' %>
+          <% end %>
+          <div class="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 duration-700 transition justify-evenly cursor-pointer">
+          </div>
+        </div>
+        <div class="p-2">
+          <h3 class=" text-white py-1 text-base justify-center"><%= result.name %>&nbsp; <%= link_to 'spotifyページに移動', result.external_urls['spotify'], class: 'underline text-blue-500' %>
+          </h3>
+          <p class="text-gray-400 text-sm">
+            <% if result.genres.any? %>
+            <%= result.genres[0] %></p>
+          <% else %>
+          ジャンル無し
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </section>
+  </div>
+</div>

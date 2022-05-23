@@ -1,0 +1,20 @@
+<% content_for(:html_title) do %>
+<%= @user.name %> さんが登録したアルバム
+<% end %>
+
+<% if @albums.any? %>
+<% @albums.each do |album| %>
+<%= link_to album_params_path(album.id) do %>
+<div class="flex justify-center h-40 mt-5">
+  <div class="flex flex-col md:flex-row rounded-lg bg-white shadow-lg w-2/3">
+    <%= image_tag album.image, class: 'w-1/3 h-auto object-cover rounded-t-lg md:rounded-none md:rounded-l-lg' %>
+    <div class="w-2/3 p-4 flex flex-col justify-start">
+      <h5 class="text-gray-900 text-xl font-medium mb-2"><%= album.name %></h5>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>
+<% else %>
+<p>登録アルバムはありません</p>
+<% end %>

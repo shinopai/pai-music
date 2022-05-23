@@ -1,0 +1,53 @@
+<% content_for(:html_title) do %>
+<%= @artist.name %> 詳細ページ
+<% end %>
+
+<div class="container mx-auto my-36">
+  <div>
+    <div class="bg-white relative shadow rounded-lg w-5/6 mx-auto">
+      <div class="flex justify-center">
+        <% if @artist.image.present? %>
+        <%= image_tag @artist.image, class: 'rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110' %>
+        <% else %>
+        <%= image_tag 'no-image.jpg', class: 'rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110' %>
+        <% end %>
+      </div>
+      <div class="mt-16">
+        <h1 class="font-bold text-center text-3xl text-gray-900"><%= @artist.name %></h1>
+        <p class="text-center text-sm text-gray-400 font-medium mt-2"><%= @artist.genre.name %></p>
+        <p class="text-center text-sm text-gray-400 font-medium mt-2"><%= link_to 'spotifyページへ移動', @artist.spotify_url, class: 'text-my-blue underline' %></p>
+
+        <div class="w-full mt-5">
+          <h3 class="font-medium text-gray-900 text-left px-6">Discography</h3>
+          <% @artist_albums.each do |album| %>
+          <div class="mt-5 w-full flex justify-between items-center overflow-hidden gap-2 px-4">
+            <div>
+              <%= image_tag album.images[2]['url'] %>
+            </div>
+            <div><%= album.name %></div>
+            <div><%= album.release_date %></div>
+            <div>
+              <%= link_to 'spotifyページ', album.uri, class: 'text-my-blue underline' %>
+            </div>
+            <div>
+              <% if user_signed_in? %>
+              <% if isExistsAlbum(album.id) %>
+              <%= link_to confirm_user_albums_path(current_user.id, result: createAlbumObject(album.name, album.id, album.images[0], album.external_urls, album.release_date, album.type)) do %>
+              <span class="material-icons cursor-pointer" title="このアルバムを保存する">
+                add_box
+              </span>
+              <% end %>
+              <% else %>
+              <span class="material-icons cursor-pointer" title="既に登録済です">
+                how_to_reg
+              </span>
+              <% end %>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

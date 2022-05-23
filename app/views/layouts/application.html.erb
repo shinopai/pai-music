@@ -19,7 +19,7 @@
   <%= render 'layouts/partial/header' %>
 
   <% if user_signed_in? %>
-  <p class="p-2">こんにちは、<span class="font-bold"><%= current_user.name %></span>さん</p>
+  <p class="p-2">こんにちは、<span class="font-bold"><%= link_to current_user.name, users_profile_path(current_user), class: 'underline text-my-blue' %></span>さん</p>
   <% end %>
 
   <main class="w-[80%] mx-auto my-10">

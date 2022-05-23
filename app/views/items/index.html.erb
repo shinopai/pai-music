@@ -13,7 +13,7 @@
         </svg>
       </button>
     </div>
-    <%= select_tag('search_q', options_for_select({すべて: 'all', アーティスト: 'artist', タイトル: 'title'}), class: 'mt-2 cursor-pointer rounded') %>
+    <%= select_tag('search_q', options_for_select({アーティスト: 'artist', タイトル: 'title'}), class: 'mt-2 cursor-pointer rounded') %>
     <% end %>
   </div>
 </div>
@@ -27,14 +27,56 @@
         sell
       </span>
       リリース登録件数
-      <p>0件</p>
+      <p><%= @albums.size %>件</p>
     </div>
     <div class="w-1/2">
       <span class="material-icons" style="vertical-align: -4px;">
         assignment_ind
       </span>
       アーティスト登録件数
-      <p>0件</p>
+      <p><%= @artists.size %>件</p>
     </div>
   </div>
+</section>
+
+<!-- recently added artist -->
+<section class="mt-10">
+  <h2 class="font-bold mb-2">最近追加・更新されたアーティスト</h2>
+  <% if @artists.any? %>
+  <div class="grid sm:grid-cols-1 md:grid-cols-4 m-5 mb-10 gap-4">
+    <% @artists.each do |artist| %>
+    <div class="text-center">
+      <% if artist.image.present? %>
+      <%= image_tag artist.image, class: 'rounded-full mb-4 mx-auto', alt: artist.name %>
+      <% else %>
+      <%= image_tag 'no-image.jpg', class: 'rounded-full mb-4 mx-auto', alt: artist.name %>
+      <% end %>
+      <h5 class="font-medium leading-tight mb-2"><%= link_to artist.name, artist_params_path(artist), class: 'text-my-blue underline' %></h5>
+    </div>
+    <% end %>
+  </div>
+  <% else %>
+  <p>まだ情報はありません</p>
+  <% end %>
+</section>
+
+<!-- recently added album -->
+<section class="mt-10">
+  <h2 class="font-bold mb-2">最近追加・更新されたアルバム</h2>
+  <% if @albums.any? %>
+  <div class="grid sm:grid-cols-1 md:grid-cols-4 m-5 mb-10 gap-4">
+    <% @albums.each do |album| %>
+    <div class="text-center">
+      <% if album.image.present? %>
+      <%= image_tag album.image, class: 'rounded-full mb-4 mx-auto', alt: album.name %>
+      <% else %>
+      <%= image_tag 'no-image.jpg', class: 'rounded-full mb-4 mx-auto', alt: album.name %>
+      <% end %>
+      <h5 class="font-medium leading-tight mb-2"><%= link_to album.name, album_params_path(album), class: 'text-my-blue underline' %></h5>
+    </div>
+    <% end %>
+  </div>
+  <% else %>
+  <p>まだ情報はありません</p>
+  <% end %>
 </section>

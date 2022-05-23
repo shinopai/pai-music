@@ -11,4 +11,5 @@ class User < ApplicationRecord
 
   # relation
   has_many :artists
+  has_many :albums
 end

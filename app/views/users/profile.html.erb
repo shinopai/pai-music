@@ -1,0 +1,39 @@
+<% content_for(:html_title) do %>
+<%= @user.name %> プロフィールページ
+<% end %>
+
+<div class="container mx-auto my-36">
+  <div>
+    <div class="bg-white relative shadow rounded-lg w-5/6 md:w-4/6  lg:w-3/6 mx-auto">
+      <div class="flex justify-center">
+        <%= image_tag 'user_profile.jpg', class: 'rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110' %>
+      </div>
+
+      <div class="mt-16">
+        <h1 class="font-bold text-center text-3xl text-gray-900"><%= @user.name %></h1>
+        <p class="text-center text-sm text-gray-400 font-medium"><%= @user.email %></p>
+        <p>
+          <span>
+          </span>
+        </p>
+
+        <div class="w-full mt-5">
+          <h3 class="font-medium text-gray-900 text-left px-6">User Status</h3>
+          <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
+            <%= link_to all_user_artists_path(@user), class: 'w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150' do %>
+            <img src="https://scontent.fotp3-1.fna.fbcdn.net/v/t1.6435-9/175889300_2909358829319917_899035180950984171_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=MaOc2WiX9w0AX_xiqmh&_nc_ht=scontent.fotp3-1.fna&oh=00_AT85mEIpqHX5yThEAWoCZCt2PAnO-SS4M0yKFm9Cjti2zg&oe=628D39CC" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
+            Added artists
+            <span class="text-gray-500 text-xs"><%= @user.artists.size %> total</span>
+            <% end %>
+
+            <%= link_to all_user_albums_path(@user), class: 'w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150 overflow-hidden' do %>
+            <img src="https://scontent.fotp3-1.fna.fbcdn.net/v/t1.6435-9/175889300_2909358829319917_899035180950984171_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=MaOc2WiX9w0AX_xiqmh&_nc_ht=scontent.fotp3-1.fna&oh=00_AT85mEIpqHX5yThEAWoCZCt2PAnO-SS4M0yKFm9Cjti2zg&oe=628D39CC" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
+            Added albums
+            <span class="text-gray-500 text-xs"><%= @user.albums.size %> total</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

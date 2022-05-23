@@ -1,6 +1,9 @@
 class ArtistsController < ApplicationController
+  before_action :authenticate_user!
+
+  require 'rspotify'
+
   def confirm
-    # render plain: params[:result].inspect
     @user_id = params[:user_id]
     @name = params[:result][0]['name']
     @spotify_id = params[:result][0]['id']
@@ -10,7 +13,6 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    # render plain: params.inspect
     if !params[:genre].empty?
       res = Genre.where(name: params[:genre]).select(:id).first
       if res.nil?
@@ -22,10 +24,6 @@ class ArtistsController < ApplicationController
         genre_id = Genre.where(name: params[:genre]).first.id
       end
     end
-
-      logger.debug('ここから')
-      logger.debug(artist_params[:name])
-      logger.debug('ここまで')
 
       user = User.find(params[:user_id])
       artist = user.artists.new
@@ -41,6 +39,14 @@ class ArtistsController < ApplicationController
       redirect_to root_path
   end
 
+  def show
+    RSpotify.authenticate('f86989415ca846fea96bbe11eb57013f', '50953df646a249b3816b08341d5befd9')
+
+    @artist = Artist.find(params[:id])
+
+    res = RSpotify::Artist.find(@artist.spotify_id)
+    @artist_albums = res.albums
+  end
 
   # private
   def artist_params

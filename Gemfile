@@ -91,3 +91,6 @@ gem 'kaminari'
 
 # upgrade rails console
 gem 'pry-rails'
+
+# generate dammy date
+gem 'faker'
