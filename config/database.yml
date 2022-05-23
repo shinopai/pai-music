@@ -16,6 +16,7 @@ test:
 
 production:
   <<: *default
-  database: pai_music_production
-  username: pai_music
+  username: <%= ENV["PAI_MUSIC_DATABASE_USERNAME"] %>
   password: <%= ENV["PAI_MUSIC_DATABASE_PASSWORD"] %>
+  host: <%= ENV["PAI_MUSIC_DATABASE_HOST"] %>
+  database: <%= ENV["PAI_MUSIC_DATABASE"] %>
